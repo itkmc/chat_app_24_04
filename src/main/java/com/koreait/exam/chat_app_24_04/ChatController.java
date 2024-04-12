@@ -1,5 +1,7 @@
 package com.koreait.exam.chat_app_24_04;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +33,17 @@ public class ChatController {
       );
    }
 
+   public record MessagesResponse(List<ChatMessage> messages, long count){
+
+   }
+
    @GetMapping("/messages")
    @ResponseBody
-   public RsData<List<ChatMessage>> messages() {
+   public RsData<MessagesResponse> messages() {
       return new RsData<>(
           "S-1",
           "성공",
-          chatMessages
+          new MessagesResponse(chatMessages,chatMessages.size())
       );
 
    }
